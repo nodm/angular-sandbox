@@ -6,10 +6,14 @@ import { StoreModule } from '@ngrx/store';
 import { NavigationActionTiming, routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { environment } from '~env/environment';
 import { userFactory } from '~core/providers';
 import { LayoutModule } from '~modules/layout';
 import { AppRoutingModule } from './app-routing.module';
+import {
+  STORE_CONFIG,
+  STORE_DEVTOOLS_CONFIG,
+  STORE_ROUTER_FEATURE_NAME,
+} from './app.constants';
 import { AppComponent } from './app.component';
 
 
@@ -23,25 +27,14 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     StoreModule.forRoot(
       {
-        router: routerReducer,
+        [STORE_ROUTER_FEATURE_NAME]: routerReducer,
       },
-      {
-        runtimeChecks: {
-          strictStateImmutability: true,
-          strictActionImmutability: true,
-          strictActionWithinNgZone: true,
-          strictStateSerializability: true,
-          strictActionSerializability: true,
-        },
-    }),
+      STORE_CONFIG,
+    ),
     StoreRouterConnectingModule.forRoot({
       navigationActionTiming: NavigationActionTiming.PostActivation,
     }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-      name: 'Angular Sandbox',
-    }),
+    StoreDevtoolsModule.instrument(STORE_DEVTOOLS_CONFIG),
     LayoutModule,
     AppRoutingModule,
   ],
