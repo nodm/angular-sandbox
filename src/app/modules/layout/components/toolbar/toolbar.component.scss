@@ -1,0 +1,8 @@
+$toolbar-z-index: 2;
+
+.toolbar {
+    &--mobile {
+        position: fixed;
+        z-index: $toolbar-z-index;
+    }
+}

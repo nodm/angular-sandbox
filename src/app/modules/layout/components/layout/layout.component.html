@@ -1,0 +1,23 @@
+<div class="layout"
+     [class.layout--mobile]="mobileQuery.matches">
+    <app-toolbar title="Angular Sandbox"
+                 [mobile]="mobileQuery.matches"
+                 (toggleMenu)="appMenu.toggle()"></app-toolbar>
+
+    <mat-sidenav-container class="layout__sidenav"
+                           [style.marginTop.px]="mobileQuery.matches ? toolbarHeight : 0">
+        <mat-sidenav #appMenu
+                     [mode]="mobileQuery.matches ? 'over' : 'side'"
+                     [fixedInViewport]="mobileQuery.matches"
+                     [fixedTopGap]="toolbarHeight">
+            <mat-nav-list>
+                <a mat-list-item [routerLink]="pageOneLink">Page One</a>
+                <a mat-list-item [routerLink]="pageTwoLink">Page Two</a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <ng-content></ng-content>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
